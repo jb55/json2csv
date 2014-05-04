@@ -1,6 +1,6 @@
 {
-  "name": "json-table",
-  "description": "like json2csv but supports nested fields and arrays",
+  "name": "jb55-json-table",
+  "description": "like zeMirco/json2csv but supports nested fields and arrays",
   "keywords": [
     "csv",
     "table",

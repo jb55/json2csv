@@ -12,7 +12,9 @@
 
   Install with npm
 
-    $ npm install json-table
+    $ npm install jb55/json-table
+
+    $ npm install jb55-json-table
 
 ## Examples
 
