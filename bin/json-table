@@ -1,0 +1,73 @@
+#!/usr/bin/env node
+
+require('epipebomb')()
+var argv = require('minimist')(process.argv.slice(2));
+
+if (argv.help || argv.h) return usage();
+
+var keys = require('../');
+var debug = require('debug')('json-table');
+var json = require('JSONStream');
+var join = require('join-stream');
+var csv = require('csv').stream;
+var through = require('through');
+var lens = require('dot-lens').get;
+var fs = require('fs');
+
+var lenses = {};
+var first = true;
+var firstObj = true;
+var fields = argv.f || argv.fields;
+if (fields) fields = fields.split(',')
+
+var delim = argv.d || argv.delim || ","
+var source = argv._[0]? fs.createReadStream(argv._[0]) : process.stdin;
+
+var s = source
+.pipe(json.parse())
+.pipe(through(function(rec){
+  if (first) {
+    first = false;
+    fields = fields || keys(rec);
+    fields.forEach(function(field){
+      lenses[field] = lens(field)
+    });
+  }
+  this.push(rec);
+}))
+.pipe(through(function(obj){
+  if (firstObj === true) {
+    firstObj = false;
+    this.queue(fields);
+  }
+
+  var row = fields.map(function(field){
+    try {
+      var val = lenses[field](obj);
+      if (val == null) return "";
+      return val;
+    }
+    catch (e) {
+      debug("missing field '%s' in %j", field, obj);
+      return "";
+    }
+  });
+
+  this.queue(row);
+}))
+.pipe(csv({ delimiter: delim }))
+.pipe(process.stdout)
+
+function usage() {
+  console.log('usage: json-table [-f fieldList] [-d "|"] [file]');
+  console.log();
+  console.log('  Examples:');
+  console.log();
+  console.log('    # different delimeter');
+  console.log('    # <package.json json-table -d "|"');
+  console.log();
+  console.log('    # combo with json-fields');
+  console.log('    # <package.json json-table -f `json-fields package.json`');
+  console.log();
+  process.exit(1);
+}

@@ -1,0 +1,38 @@
+{
+  "name": "json-table",
+  "description": "like json2csv but supports nested fields and arrays",
+  "keywords": [
+    "csv",
+    "table",
+    "json2csv"
+  ],
+  "version": "1.0.0",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/jb55/json-table.git"
+  },
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha --harmony --reporter spec"
+  },
+  "bin": {
+    "json-table": "./bin/json-table",
+    "json-fields": "./bin/json-fields"
+  },
+  "dependencies": {
+    "JSONStream": "^0.7.3",
+    "csv": "git://github.com/segmentio/csv",
+    "debug": "^0.8.1",
+    "dot-lens": "1.1.1",
+    "epipebomb": "^0.1.1",
+    "join-stream": "0.0.0",
+    "minimist": "0.0.8",
+    "tableize-array": "^1.1.0",
+    "through": "^2.3.4"
+  },
+  "devDependencies": {
+    "expect.js": "*",
+    "from": "^0.1.3",
+    "mocha": "*"
+  }
+}
