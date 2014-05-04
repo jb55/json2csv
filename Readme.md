@@ -1,5 +1,5 @@
 
-# json-table [![Build Status](https://travis-ci.org/jb55/json-table.svg)](https://travis-ci.org/jb55/json-table)
+# json2csv [![Build Status](https://travis-ci.org/jb55/json2csv.svg)](https://travis-ci.org/jb55/json2csv)
 
   Convert a stream of json objects to csv
 
@@ -18,17 +18,17 @@
 
 ## Examples
 
-    $ json-table package.json
+    $ json2csv package.json
 
 ```
 "name","description","keywords.0","keywords.1","keywords.2","version","repository.type","repository.url","main","scripts.test","bin.json-table","bin.json-fields","dependencies.JSONStream","dependencies.csv","dependencies.debug","dependencies.dot-lens","dependencies.epipebomb","dependencies.join-stream","dependencies.minimist","dependencies.tableize-array","dependencies.through","devDependencies.expect\.js","devDependencies.from","devDependencies.mocha"
-"json-table","tableize json","csv","table","json2csv","0.0.1","git","git://github.com/jb55/json-table.git","index.js","mocha --harmony --reporter spec","./bin/json-table","./bin/json-fields","^0.7.3","git://github.com/segmentio/csv","^0.8.1","1.1.1","^0.1.1","0.0.0","0.0.8","^1.1.0","^2.3.4","*","^0.1.3","*"
+"json-table","tableize json","csv","table","json2csv","0.0.1","git","git://github.com/jb55/json-table.git","index.js","mocha --harmony --reporter spec","./bin/json2csv","./bin/json-fields","^0.7.3","git://github.com/segmentio/csv","^0.8.1","1.1.1","^0.1.1","0.0.0","0.0.8","^1.1.0","^2.3.4","*","^0.1.3","*"
 ```
 
 ### Making sure all fields are covered
 
     $ mongoexport -c users > users.json 
-    $ <users.json json-table -f `json-fields users.json`
+    $ <users.json json2csv -f `json-fields users.json`
 
 ## License
 

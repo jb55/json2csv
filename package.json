@@ -1,22 +1,22 @@
 {
-  "name": "jb55-json-table",
+  "name": "jb55-json2csv",
   "description": "like zeMirco/json2csv but supports nested fields and arrays",
   "keywords": [
     "csv",
     "table",
     "json2csv"
   ],
-  "version": "1.0.0",
+  "version": "1.0.1",
   "repository": {
     "type": "git",
-    "url": "git://github.com/jb55/json-table.git"
+    "url": "git://github.com/jb55/json2csv.git"
   },
   "main": "index.js",
   "scripts": {
     "test": "mocha --harmony --reporter spec"
   },
   "bin": {
-    "json-table": "./bin/json-table",
+    "json2csv": "./bin/json2csv",
     "json-fields": "./bin/json-fields"
   },
   "dependencies": {

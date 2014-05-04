@@ -31,21 +31,21 @@ var s = source
 .on('end', function() {
   if (!argfields) {
     console.error("It's possible not all fields were covered")
-    console.error("Cache the json first and do <file.json json-table -f `json-fields file.json`")
+    console.error("Cache the json first and do <file.json json2csv -f `json-fields file.json`")
   }
 })
 .pipe(process.stdout)
 
 function usage() {
-  console.log('usage: json-table [-f fieldList] [-d "|"] [file]');
+  console.log('usage: json2csv [-f fieldList] [-d "|"] [file]');
   console.log();
   console.log('  Examples:');
   console.log();
   console.log('    # different delimeter');
-  console.log('    # <package.json json-table -d "|"');
+  console.log('    # <package.json json2csv -d "|"');
   console.log();
   console.log('    # combo with json-fields');
-  console.log('    # <package.json json-table -f `json-fields package.json`');
+  console.log('    # <package.json json2csv -f `json-fields package.json`');
   console.log();
   process.exit(1);
 }
