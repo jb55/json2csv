@@ -1,5 +1,5 @@
 
-# json-table
+# json-table [![Build Status](https://travis-ci.org/jb55/json-table.svg)](https://travis-ci.org/jb55/json-table)
 
   Convert a stream of json objects to csv
 
