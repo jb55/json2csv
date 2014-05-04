@@ -17,7 +17,8 @@ var fs = require('fs');
 var lenses = {};
 var first = true;
 var firstObj = true;
-var fields = argv.f || argv.fields;
+var argfields = argv.f || argv.fields;
+var fields = argfields;
 if (fields) fields = fields.split(',')
 
 var delim = argv.d || argv.delim || ","
@@ -25,19 +26,37 @@ var source = argv._[0]? fs.createReadStream(argv._[0]) : process.stdin;
 
 var s = source
 .pipe(json.parse())
-.pipe(through(function(rec){
-  if (first) {
+.pipe(through(handle))
+.pipe(csv({ delimiter: delim }))
+.on('end', function() {
+  if (!argfields) {
+    console.error("It's possible not all fields were covered")
+    console.error("Cache the json first and do <file.json json-table -f `json-fields file.json`")
+  }
+})
+.pipe(process.stdout)
+
+function usage() {
+  console.log('usage: json-table [-f fieldList] [-d "|"] [file]');
+  console.log();
+  console.log('  Examples:');
+  console.log();
+  console.log('    # different delimeter');
+  console.log('    # <package.json json-table -d "|"');
+  console.log();
+  console.log('    # combo with json-fields');
+  console.log('    # <package.json json-table -f `json-fields package.json`');
+  console.log();
+  process.exit(1);
+}
+
+function handle(obj) {
+  if (first === true) {
     first = false;
-    fields = fields || keys(rec);
+    fields = fields || keys(obj);
     fields.forEach(function(field){
       lenses[field] = lens(field)
     });
-  }
-  this.push(rec);
-}))
-.pipe(through(function(obj){
-  if (firstObj === true) {
-    firstObj = false;
     this.queue(fields);
   }
 
@@ -54,20 +73,4 @@ var s = source
   });
 
   this.queue(row);
-}))
-.pipe(csv({ delimiter: delim }))
-.pipe(process.stdout)
-
-function usage() {
-  console.log('usage: json-table [-f fieldList] [-d "|"] [file]');
-  console.log();
-  console.log('  Examples:');
-  console.log();
-  console.log('    # different delimeter');
-  console.log('    # <package.json json-table -d "|"');
-  console.log();
-  console.log('    # combo with json-fields');
-  console.log('    # <package.json json-table -f `json-fields package.json`');
-  console.log();
-  process.exit(1);
 }
