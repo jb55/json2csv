@@ -6,7 +6,7 @@ var exports = module.exports = function(obj) {
   return one(obj);
 }
 
-exports.stream = function() {
+exports.fields = function() {
   var d = {};
   return through(write, end);
 

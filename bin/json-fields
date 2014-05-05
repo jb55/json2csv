@@ -5,7 +5,7 @@ var argv = require('minimist')(process.argv.slice(2));
 
 if (argv.help || argv.h) return usage();
 
-var keys = require('../').stream;
+var keys = require('../').fields;
 var json = require('JSONStream');
 var join = require('join-stream');
 var fs = require('fs');
