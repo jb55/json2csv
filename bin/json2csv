@@ -9,7 +9,7 @@ var keys = require('../');
 var debug = require('debug')('json-table');
 var json = require('JSONStream');
 var join = require('join-stream');
-var csv = require('csv').stream;
+var csv = require('csv-stringify')
 var through = require('through');
 var lens = require('dot-lens').get;
 var fs = require('fs');
@@ -29,6 +29,7 @@ var s = source
 .pipe(through(handle))
 .pipe(csv({ delimiter: delim }))
 .on('end', function() {
+  console.log("")
   if (!argfields) {
     console.error("It's possible not all fields were covered")
     console.error("Cache the json first and do <file.json json2csv -f `json-fields file.json`")
