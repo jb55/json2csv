@@ -22,7 +22,6 @@
   },
   "dependencies": {
     "JSONStream": "^0.7.3",
-    "csv": "git://github.com/segmentio/csv",
     "csv-parse": "0.0.3",
     "csv-record-parser-stream": "0.0.3",
     "csv-stringify": "0.0.2",
