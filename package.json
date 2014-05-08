@@ -37,6 +37,7 @@
   "devDependencies": {
     "expect.js": "*",
     "from": "^0.1.3",
-    "mocha": "*"
+    "mocha": "*",
+    "stream-reduce": "^1.0.3"
   }
 }

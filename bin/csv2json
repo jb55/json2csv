@@ -5,7 +5,6 @@ var argv = require('minimist')(process.argv.slice(2));
 
 if (argv.help || argv.h) return usage();
 
-var keys = require('../').stream;
 var csv = require('csv-parse');
 var record = require('csv-record-parser-stream');
 var parser = require('tableize-csv-parser');

@@ -32,8 +32,16 @@
 
 ### Making sure all fields are covered
 
+json2csv will buffer all objects to make sure no fields are missed before
+spitting out the csv. If you know what fields you want you can avoid buffering
+everything by passing in an `-f` option:
+
     $ mongoexport -c users > users.json 
-    $ <users.json json2csv -f `json-fields users.json`
+    $ <users.json json2csv -f fielda,fieldb
+
+### json-fields
+
+This utility simply spits out all of the fields from a stream of JSON objects
 
 ## License
 
