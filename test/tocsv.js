@@ -13,6 +13,20 @@ function toarray() {
 }
 
 describe('json2csv', function(){
+  it('ignores non-owned props', function(){
+    obj = Object.create({ p1: 1 })
+    obj.name = 'bill'
+
+    var objs = [ obj ]
+    from(objs)
+    .pipe(json2csv())
+    .pipe(toarray())
+    .pipe(through(function(objs){
+      expect(objs[0]).to.eql(['name'])
+      expect(objs[1]).to.eql(['bill'])
+    }))
+  });
+
   it('with fields works', function(done){
     var objs = [
       { a: 'hello', b: 'hi' },
