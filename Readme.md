@@ -12,7 +12,7 @@
 
   Install with npm
 
-    $ npm install jb55/json2csv
+    $ npm install -g jb55/json2csv
 
 ## Examples
 
