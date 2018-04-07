@@ -32,10 +32,34 @@ else
 var delim = argv.d || argv.delim || ","
 var source = argv._[0]? fs.createReadStream(argv._[0]) : process.stdin;
 
+var whitespace = /[\t\n\r]/g
+var tsv = through(function write(row) {
+  for (let i = 0; i < row.length; i++) {
+    if (whitespace.test(row[i]))
+      row[i] = row[i].replace(whitespace, ' ')
+
+    if (process.env.QUOTE_STRINGS && typeof row[i] === 'string') {
+      row[i] = '"' + row[i] + '"'
+    }
+  }
+
+  this.push(row.join("\t") + "\n")
+})
+
+var opts = {delimiter: delim}
+
+if (process.env.QUOTE_STRINGS)
+  opts.quotedString = true;
+
+if (process.env.NO_HEADER)
+  opts.header = false;
+
+var csvWriter = delim === '\t' ? tsv : csv(opts)
+
 var s = source
 .pipe(json.parse())
 .pipe(json2csv(fields))
-.pipe(csv({ delimiter: delim }))
+.pipe(csvWriter)
 .on('end', function() {
   console.log("")
 })
