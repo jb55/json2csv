@@ -24,7 +24,7 @@
     "JSONStream": "^0.7.3",
     "csv-parse": "0.0.3",
     "csv-record-parser-stream": "0.0.3",
-    "csv-stringify": "0.0.2",
+    "csv-stringify": "2.0.4",
     "debug": "^0.8.1",
     "dot-lens": "1.2.3",
     "epipebomb": "^0.1.1",
