@@ -6,7 +6,7 @@
     "table",
     "json2csv"
   ],
-  "version": "3.1.0",
+  "version": "3.1.1",
   "repository": {
     "type": "git",
     "url": "git://github.com/jb55/json2csv.git"
