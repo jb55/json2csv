@@ -22,13 +22,14 @@ var fields = argfields;
 
 var fieldsIsFile = fs.existsSync(fields)
 
-if (!fieldsIsFile)
+if (!fieldsIsFile) {
   if (fields)
     fields = fields.split(',')
-else
+} else {
   fields = fs.readFileSync(fields, { encoding: 'utf8' })
   .trim()
   .split(',')
+}
 
 var delim = argv.d || argv.delim || ","
 var source = argv._[0]? fs.createReadStream(argv._[0]) : process.stdin;
