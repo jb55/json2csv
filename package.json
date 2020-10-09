@@ -22,7 +22,7 @@
   },
   "dependencies": {
     "JSONStream": "^0.7.3",
-    "csv-parse": "0.0.3",
+    "csv-parse": "4.12.0",
     "csv-record-parser-stream": "0.0.3",
     "csv-stringify": "0.0.2",
     "debug": "^0.8.1",
