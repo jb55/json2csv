@@ -27,6 +27,24 @@ describe('json2csv', function(){
     }))
   });
 
+  it('null object doesnt count as field', function(done) {
+    var objs = [
+      { a: {hi: "there"}, b: 'hi' },
+      { a: null, b: 'hi2', c: 'derp' },
+    ]
+
+    from(objs)
+      .pipe(json2csv())
+      .pipe(toarray())
+      .pipe(through(function(items){
+        expect(items[0]).to.eql(["a.hi", "b", "c"])
+        expect(items[1]).to.eql(["there", "hi", null]);
+        expect(items[2]).to.eql([null, "hi2", "derp"]);
+        done();
+      }))
+
+  })
+
   it('with fields works', function(done){
     var objs = [
       { a: 'hello', b: 'hi' },
@@ -43,7 +61,7 @@ describe('json2csv', function(){
       done();
     }))
   });
-  
+
   it('without fields works', function(done){
     var objs = [
       { a: 'hello', b: 'hi' },
