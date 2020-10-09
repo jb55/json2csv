@@ -23,7 +23,8 @@ var fields = argfields;
 var fieldsIsFile = fs.existsSync(fields)
 
 if (!fieldsIsFile)
-  fields = fields.split(',')
+  if (fields)
+    fields = fields.split(',')
 else
   fields = fs.readFileSync(fields, { encoding: 'utf8' })
   .trim()
