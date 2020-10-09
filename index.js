@@ -37,15 +37,29 @@ function withFields(fields) {
   }
 }
 
+function isParentObject(paths, key) {
+}
 
 function withoutFields() {
   debug("using withoutFields");
   var fields = {};
+  var paths = {};
   var items = [];
+  var isLeaf = true;
   return through(write, end);
 
   function write(item) {
     exports.keys(item).forEach(function(key){
+      var path = key.split('.')
+      for (var i = 0; i < path.length; ++i) {
+        var subpathKey = path.slice(0, i).join(".")
+        var existingSubPath = paths[subpathKey]
+        var thisSubPath = path.slice(i)
+        if (existingSubPath && existingSubPath.length < thisSubPath.length)
+          paths[subpathKey] = thisSubPath
+        else
+          isLeaf = false;
+      }
       fields[key] = 1;
     });
     items.push(item);
